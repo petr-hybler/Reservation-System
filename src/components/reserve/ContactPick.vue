@@ -59,7 +59,7 @@ export default {
       phone: '',
       note: '',
       tc_checked: false,
-    
+    }
   }
 }
 </script>
