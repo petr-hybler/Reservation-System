@@ -6,7 +6,7 @@
         <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
       </ol>
       <div class="carousel-inner">
-        <template v-for="item in this.$store.state.carousel">
+        <template v-for="item in this.$store.state.carousel.carousel">
         <div class="carousel-item" :class="{active: item.active}">
           <img :src="item.imgPath" class="d-block w-100" alt="...">
           <div class="carousel-caption d-none d-md-block">

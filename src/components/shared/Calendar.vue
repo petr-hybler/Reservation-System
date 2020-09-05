@@ -1,10 +1,7 @@
 <template>
   <article id="calendar">
-    <header>
+    <header class="mb-3">
       <div class="current-date">
-        <div class="current-day">
-          {{ weekdayNames[currentDay] }}
-        </div>
         <div class="today">
           <div><div class="arrow arrow-up" @click="dateUp()"></div></div>
           <div><div class="arrow arrow-up" @click="monthUp()"></div></div>
@@ -19,18 +16,18 @@
       </div>
     </header>
     <section>
-      <div class="weekdays">
+      <div class="weekdays bg-dark">
         <div class="weekday" v-for="(weekday, index) in weekdays" :key="index">
           {{ weekday }}
         </div>
       </div>
-      <div class="date">
+      <div class="date bg-secondary">
         <div class="day-hidden" v-for="(n, index) in (firstMonthDay -1)" :key="'prev'+index">
           {{ (prevMonthDays +1) - firstMonthDay + n }}
         </div>
         <div class="day"
             :class="{ active: n === currentDate.date}"
-            @click="currentDate.date = n"
+            @click="setCurrentDate(n)"
             v-for="(n, index) in currentMonthDays"
             :key="'day'+index">
           {{ n }}
@@ -62,77 +59,80 @@
     },
     computed: {
       prevMonthDays() {
-        let year = this.currentDate.month === 0 ? this.currentDate.year - 1 : this.currentDate.year;
-        let month = this.currentDate.month === 0 ? 12 : this.currentDate.month;
-        return new Date(year, month, 0).getDate();
+        let year = this.currentDate.month === 0 ? this.currentDate.year - 1 : this.currentDate.year
+        let month = this.currentDate.month === 0 ? 12 : this.currentDate.month
+        return new Date(year, month, 0).getDate()
       },
       firstMonthDay() {
-        let firstDay = new Date(this.currentDate.year, this.currentDate.month, 1).getDay();
-        if(firstDay === 0) firstDay = 7;
-        return firstDay;
+        let firstDay = new Date(this.currentDate.year, this.currentDate.month, 1).getDay()
+        if(firstDay === 0) firstDay = 7
+        return firstDay
       },
       currentDay() {
-        return new Date(this.currentDate.year, this.currentDate.month, this.currentDate.date).getDay();
+        let cDay = new Date(this.currentDate.year, this.currentDate.month, this.currentDate.date).getDay()
+        return cDay
       },
       currentMonthDays() {
-        return new Date(this.currentDate.year, this.currentDate.month +1, 0).getDate();
+        return new Date(this.currentDate.year, this.currentDate.month +1, 0).getDate()
       }
     },
     methods: {
       getCurrentDate() {
-        let today = new Date();
-        this.currentDate.date = today.getDate();
-        this.currentDate.month = today.getMonth();
-        this.currentDate.year = today.getFullYear();
+        let today = new Date()
+        this.currentDate.date = today.getDate()
+        this.currentDate.month = today.getMonth()
+        this.currentDate.year = today.getFullYear()
       },
       dateUp() {
         if(this.currentDate.date === this.currentMonthDays) {
-          this.currentDate.date = 1;
-          this.monthUp();
+          this.currentDate.date = 1
+          this.monthUp()
         }
         else {
-          this.currentDate.date += 1;
+          this.currentDate.date += 1
         }
       },
       dateDown() {
         if(this.currentDate.date === 1) {
-          this.currentDate.date = this.prevMonthDays;
-          this.monthDown();
+          this.currentDate.date = this.prevMonthDays
+          this.monthDown()
         }
         else {
-          this.currentDate.date -= 1;
+          this.currentDate.date -= 1
         }
       },
       monthUp() {
         if(this.currentDate.month === 11) {
-          this.currentDate.month = 0;
-          this.currentDate.year += 1;
+          this.currentDate.month = 0
+          this.currentDate.year += 1
         }
         else {
-          this.currentDate.month += 1;
+          this.currentDate.month += 1
         }
       },
       monthDown() {
         if(this.currentDate.month === 0) {
-          this.currentDate.month = 11;
-          this.currentDate.year -= 1;
+          this.currentDate.month = 11
+          this.currentDate.year -= 1
         }
         else {
-          this.currentDate.month -= 1;
+          this.currentDate.month -= 1
         }
+      },
+      setCurrentDate(data) {
+        this.currentDate.date = data
+        this.$store.dispatch('addDayToReservation', this.currentDate)
       }
     },
     created() {
-      this.getCurrentDate();
+      this.getCurrentDate()
     }
   }
 </script>
 
 <style lang="css" scoped>
-@import url('https://fonts.googleapis.com/css?family=Anton');
  #calendar {
 	 width: 460px;
-	 font-family: 'Anton';
 	 border-radius: 15px;
 	 overflow: hidden;
 	 background-size: cover;
@@ -143,7 +143,6 @@
 	 display: flex;
 	 justify-content: center;
 	 align-items: top;
-	 height: 180px;
 	 text-align: center;
 	 overflow: hidden;
 }
@@ -157,6 +156,7 @@
 	 border-right: 10px solid transparent;
 	 cursor: pointer;
 	 border-bottom: 10px solid #000;
+   transition: 0.3s;
 }
  #calendar header .arrow-up:hover {
 	 border-bottom: 10px solid rgba(0, 0, 0, .4);
@@ -168,6 +168,7 @@
 	 border-right: 10px solid transparent;
 	 cursor: pointer;
 	 border-top: 10px solid #000;
+   transition: 0.3s;
 }
  #calendar header .arrow-down:hover {
 	 border-top: 10px solid rgba(0, 0, 0, .4);
@@ -191,7 +192,7 @@
 	 display: grid;
 	 grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 	 grid-gap: 10px;
-	 padding: 10px 20px 10px;
+	 padding: 5px 10px 5px;
 	 background-color: rgba(0, 0, 0, .5);
 	 border-bottom: 1px solid #fff;
 }
@@ -210,14 +211,13 @@
 	 display: grid;
 	 grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
 	 grid-gap: 10px;
-	 padding: 10px 20px 20px;
+	 padding: 5px 10px 5px;
 	 background-color: rgba(0, 0, 0, .7);
 }
  #calendar .date div {
 	 display: flex;
 	 justify-content: center;
 	 align-items: center;
-	 height: 30px;
 	 color: #fff;
 	 border-radius: 5px;
 }
@@ -227,6 +227,7 @@
 }
  #calendar .date .day {
 	 cursor: pointer;
+   transition: 0.3s;
 }
  #calendar .date .day:hover {
 	 background-color: #fff;

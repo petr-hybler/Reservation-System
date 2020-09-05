@@ -2,7 +2,7 @@
 <div class="my-5 container">
     <h3>Skillset</h3>
     <div class="row my-3">
-      <div class="col-sm" v-for="skillset in this.$store.state.skillset">
+      <div class="col-sm" v-for="skillset in this.$store.state.skillset.skills">
         <div class="card mx-2 text-white bg-dark rounded-pill">
           <div class="card-header text-center bg-transparent">
             <h3 class="text-center">{{skillset.value}}</h3>
@@ -19,8 +19,9 @@
 </template>
 
 <script>
-export default {
-}
+
+  export default {
+  }
 </script>
 
 <style lang="css" scoped>

@@ -26,7 +26,7 @@
       <div class="col-4 mx-auto">
         <h5>Services</h5>
         <ul class="text-small multicol pl-0">
-          <template v-for="service in this.$store.state.services">
+          <template v-for="service in this.$store.state.reserve.services">
           <li>
               <router-link tag="a"
                             class="text-muted"

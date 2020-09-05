@@ -9,7 +9,7 @@
 
             <div class="container">
               <div class="row">
-                <div class="col-4 mb-4" v-for="service in this.$store.state.services">
+                <div class="col-4 mb-4" v-for="service in this.$store.state.services.services">
                     <div class="card shadow-sm">
                       <div class="card-header bg-dark text-white">
                         <h5 class="my-0">{{service.name}}</h5>

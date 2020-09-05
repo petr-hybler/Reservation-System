@@ -7,7 +7,7 @@
 
             <div class="row text-center text-lg-left" id="gallery">
 
-              <div class="col-lg-3 col-md-4 col-6" v-for="image in this.$store.state.gallery">
+              <div class="col-lg-3 col-md-4 col-6" v-for="image in this.$store.state.gallery.gallery">
                 <div class="d-block mb-4 h-100 gallery-item">
                       <img class="img-fluid img-thumbnail"
                            data-toggle="modal"
