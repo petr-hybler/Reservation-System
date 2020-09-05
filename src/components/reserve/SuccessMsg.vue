@@ -4,6 +4,8 @@
        <h3>Congratulations</h3>
       <br>
       Your reservation has been sent :)
+      <hr><hr>
+      {{this.$store.state.reserve.reservation}}
   </div>
 </template>
 

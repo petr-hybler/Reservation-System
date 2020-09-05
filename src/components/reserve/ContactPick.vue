@@ -6,7 +6,7 @@
       <div class="w-50 mx-auto">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input v-model="email"
+          <input v-model.lazy="setEmail"
                 type="email"
                 class="form-control"
                 id="Email"
@@ -17,7 +17,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Name</label>
-          <input v-model="name"
+          <input v-model.lazy="setName"
                 type="text"
                 class="form-control"
                 id="Name"
@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Cell phone</label>
-          <input v-model="phone"
+          <input v-model.lazy="setPhone"
                  type="text"
                  class="form-control"
                  id="Phone"
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Note</label>
-          <textarea v-model="note"
+          <textarea v-model.lazy="setNote"
                     type="textarea"
                     class="form-control"
                     id="Note"
@@ -54,11 +54,49 @@
 export default {
   data() {
     return {
-      email: '',
       name: '',
+      email: '',
       phone: '',
       note: '',
       tc_checked: false,
+    }
+  },
+  computed: {
+    setEmail: {
+      get() {
+        return this.email
+      },
+      set(newVal) {
+        this.email = newVal
+        this.$store.dispatch('addEmailToReservation', newVal)
+      }
+    },
+    setName: {
+      get() {
+        return this.name
+      },
+      set(newVal) {
+        this.name = newVal
+        this.$store.dispatch('addNameToReservation', newVal)
+      }
+    },
+    setPhone: {
+      get() {
+        return this.phone
+      },
+      set(newVal) {
+        this.phone = newVal
+        this.$store.dispatch('addPhoneToReservation', newVal)
+      }
+    },
+    setNote: {
+      get() {
+        return this.note
+      },
+      set(newVal) {
+        this.note = newVal
+        this.$store.dispatch('addNoteToReservation', newVal)
+      }
     }
   }
 }

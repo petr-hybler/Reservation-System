@@ -68,6 +68,18 @@ export default {
       state.reservation.datetime.hour_from = data.from
       state.reservation.datetime.hour_to = data.to
       //console.log(state.reservation)
+    },
+    addNameToReservation: (state, data) => {
+      state.reservation.contact.name = data;
+    },
+    addPhoneToReservation: (state, data) => {
+      state.reservation.contact.phone = data;
+    },
+    addEmailToReservation: (state, data) => {
+      state.reservation.contact.email = data;
+    },
+    addNoteToReservation: (state, data) => {
+      state.reservation.contact.note = data;
     }
   },
   //actions
@@ -80,6 +92,18 @@ export default {
     },
     addTimeToReservation: ({commit}, payload) => {
       commit('addTimeToReservation', payload)
+    },
+    addNameToReservation: ({commit}, payload) => {
+      commit('addNameToReservation', payload)
+    },
+    addPhoneToReservation: ({commit}, payload) => {
+      commit('addPhoneToReservation', payload)
+    },
+    addNoteToReservation: ({commit}, payload) => {
+      commit('addNoteToReservation', payload)
+    },
+    addEmailToReservation: ({commit}, payload) => {
+      commit('addEmailToReservation', payload)
     }
   }
 }
